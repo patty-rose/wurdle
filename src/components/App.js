@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentWord: 'birth',
+      currentWord: null,
       currentDisplayedAnswer: ['_', '_', '_', '_', '_'],
       lettersGuessed: [],
       winOrLose: null,
@@ -20,7 +20,6 @@ class App extends React.Component {
   }
   
   handleAddLetterSubmit = (newLetter) => {
-    console.log(newLetter);
     if(!this.state.lettersGuessed.includes(newLetter)){
       const newLettersGuessed = this.state.lettersGuessed.concat(newLetter);
       this.setState({
