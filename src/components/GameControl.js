@@ -15,7 +15,7 @@ function GameControl(props){
         <li>game announcements like: you win! you lose! already guessed that!</li>
       </ul>
 
-      <WordToGuessDisplay guessWord = {props.word} playerMadeGuesses = {props.guessesByPlayer} />
+      <WordToGuessDisplay guessWord = {props.word} currentWordDisplayed = {props.displayedAnswer} playerMadeGuesses = {props.guessesByPlayer} />
       <GuessForm whenAddLetterSubmit = {props.onAddLetterSubmit} />
     </React.Fragment>
   );
@@ -23,6 +23,7 @@ function GameControl(props){
 
 GameControl.propTypes = { 
   word: PropTypes.string,
+  displayedAnswer: PropTypes.array,
   guessesByPlayer: PropTypes.array,
   onAddLetterSubmit: PropTypes.func
 };

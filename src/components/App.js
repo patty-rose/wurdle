@@ -11,6 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentWord: 'birth',
+      currentDisplayedAnswer: ['_', '_', '_', '_', '_'],
       lettersGuessed: []
     };
   }
@@ -21,6 +22,20 @@ class App extends React.Component {
     this.setState({
       lettersGuessed: newLettersGuessed
     })
+    this.hideOrDisplayLetters(newLetter);
+  }
+
+  hideOrDisplayLetters(letter){
+    const { currentWord, currentDisplayedAnswer } = this.state;
+    let newCurrentDisplayedAnswer = currentDisplayedAnswer;
+    for(let i = 0; i < currentWord.length; i++){
+      if(currentWord[i] === letter){
+        newCurrentDisplayedAnswer[i] = letter;
+      }
+    }
+    this.setState({
+      currentDisplayedAnswer: newCurrentDisplayedAnswer
+    })
   }
 
   render(){
@@ -28,7 +43,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Navbar />
-        <GameControl word = {this.state.currentWord} guessesByPlayer = {this.state.lettersGuessed} onAddLetterSubmit = {this.handleAddLetterSubmit} />
+        <GameControl word = {this.state.currentWord} displayedAnswer = {this.state.currentDisplayedAnswer} guessesByPlayer = {this.state.lettersGuessed} onAddLetterSubmit = {this.handleAddLetterSubmit} />
       </React.Fragment>
     );
   }
