@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import WordToGuessDisplay from "./WordToGuessDisplay.js";
+import GuessForm from "./GuessForm";
 
 function GameControl(props){
   return (
@@ -12,12 +14,17 @@ function GameControl(props){
         <li>letter guess form w/submit</li>
         <li>game announcements like: you win! you lose! already guessed that!</li>
       </ul>
+
+      <WordToGuessDisplay guessWord = {props.word} playerMadeGuesses = {props.guessesByPlayer} />
+      <GuessForm whenAddLetterSubmit = {props.onAddLetterSubmit} />
     </React.Fragment>
   );
 }
 
 GameControl.propTypes = { 
-
+  word: PropTypes.string,
+  guessesByPlayer: PropTypes.array,
+  onAddLetterSubmit: PropTypes.func
 };
 
 // //MyExampleComponent.propTypes = {
