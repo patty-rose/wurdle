@@ -6,8 +6,8 @@ function WordToGuessDisplay(props){
 
   return (
     <React.Fragment>
-      <h1>WORD TO GUESS</h1>
-      <h4>{props.currentWordDisplayed.join(" ")}</h4>
+      <h2>WORD TO GUESS:</h2>
+      <h1>{props.currentWordDisplayed.join(" ")}</h1>
     </React.Fragment>
   );
 }

@@ -5,6 +5,7 @@ function GuessForm(props){
 
   function handleFormSubmission(event) {
     event.preventDefault();
+    props.whenResetAlert();
     props.whenAddLetterSubmit(event.target.letter.value);
   }
 
@@ -27,5 +28,6 @@ function GuessForm(props){
 
 GuessForm.propTypes = {
   whenAddLetterSubmit : PropTypes.func,
+  whenResetAlert : PropTypes.func
 }
 export default GuessForm;

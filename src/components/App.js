@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import GameControl from "./GameControl.js";
+import { WORDS } from "./WORDS.js";
 
 // import { connect } from 'react-redux';
 // import PropTypes from "prop-types";
@@ -59,12 +60,36 @@ class App extends React.Component {
     }
   }
 
+  selectNewWord(){
+    const newWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+    this.setState({
+      currentWord: newWord
+    })
+  }
+
+  handleNewGameClick = () => {
+    this.selectNewWord();
+    this.setState({
+      currentDisplayedAnswer: ['_', '_', '_', '_', '_'],
+      lettersGuessed: [],
+      winOrLose: null,
+      alert: null
+    })
+  }
+
+  resetAlertHandler = () => {
+    this.setState({
+      alert: null
+    })
+  }
+
   render(){
     console.log(this.state);
     return (
       <React.Fragment>
         <Navbar />
-        <GameControl word = {this.state.currentWord} displayedAnswer = {this.state.currentDisplayedAnswer} guessesByPlayer = {this.state.lettersGuessed} onAddLetterSubmit = {this.handleAddLetterSubmit} winOrLoseStatus = {this.state.winOrLose} gameAlert = {this.state.alert} />
+        <GameControl word = {this.state.currentWord} displayedAnswer = {this.state.currentDisplayedAnswer} guessesByPlayer = {this.state.lettersGuessed} onAddLetterSubmit = {this.handleAddLetterSubmit} winOrLoseStatus = {this.state.winOrLose} gameAlert = {this.state.alert} onResetAlert = {this.resetAlertHandler} />
+        <button type='button' onClick={ this.handleNewGameClick }>NEW GAME!</button>
       </React.Fragment>
     );
   }
