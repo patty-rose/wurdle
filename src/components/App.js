@@ -111,7 +111,7 @@ App.propTypes = {
 
 const mapStateToProps = state => {
   return{
-    lettersGuessed : state.lettersGuessed
+    lettersGuessed : state
   }
 }
 

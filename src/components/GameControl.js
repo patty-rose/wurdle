@@ -22,8 +22,8 @@ function GameControl(props){
       <WordToGuessDisplay guessWord = {props.word} currentWordDisplayed = {props.displayedAnswer} playerMadeGuesses = {props.guessesByPlayer} />
       {playingFieldDisplays}
       {alertDisplay}
-      <h3> GUESSES USED: {props.guessesByPlayer}/10</h3>
-      {/* <h3>GUESSED LETTERS: {guesses.join(' ')}</h3> */}
+      <h3> GUESSES USED: {props.guessesByPlayer.length}/10</h3>
+      <h3>GUESSED LETTERS: {props.guessesByPlayer.join(' ')}</h3>
     </React.Fragment>
   );
 }
