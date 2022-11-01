@@ -3,17 +3,18 @@ import Navbar from "./Navbar";
 import GameControl from "./GameControl.js";
 import { WORDS } from "./WORDS.js";
 
-// import { connect } from 'react-redux';
-// import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       currentWord: null,
       currentDisplayedAnswer: ['_', '_', '_', '_', '_'],
-      lettersGuessed: [],
+      // lettersGuessed: [],
       winOrLose: null,
       alert: null
     };
@@ -22,18 +23,26 @@ class App extends React.Component {
 
 
   handleAddLetterSubmit = (newLetter) => {
-    if(!this.state.lettersGuessed.includes(newLetter)){
-      const newLettersGuessed = this.state.lettersGuessed.concat(newLetter);
-      this.setState({
-        lettersGuessed: newLettersGuessed
-      })
+
+    const { dispatch } = this.props;
+    const action = {
+      type : 'ADD_LETTER',
+      payload: newLetter
+    }
+    dispatch(action);
+
+    // if(!this.props.lettersGuessed.includes(newLetter)){
+    //   const newLettersGuessed = this.props.lettersGuessed.concat(newLetter);
+    //   this.setState({
+    //     lettersGuessed: newLettersGuessed
+    //   })
       this.hideOrDisplayLetters(newLetter);
       this.checkWinOrLose();
-    } else {
-      this.setState({
-        alert: 'repeat-letter'
-      })
-    }
+    // } else {
+    //   this.setState({
+    //     alert: 'repeat-letter'
+    //   })
+    // }
   }
 
   hideOrDisplayLetters(letter){
@@ -54,7 +63,7 @@ class App extends React.Component {
       this.setState({
         winOrLose: 'win'
       })
-    } else if(this.state.lettersGuessed.length >= 9){// BUG this should be 10, but somewhere the order of events is not right
+    } else if(this.props.lettersGuessed.length >= 9){// BUG this should be 10, but somewhere the order of events is not right
       this.setState({
         winOrLose:'lose'
       })
@@ -89,28 +98,24 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Navbar />
-        <GameControl word = {this.state.currentWord} displayedAnswer = {this.state.currentDisplayedAnswer} guessesByPlayer = {this.state.lettersGuessed} onAddLetterSubmit = {this.handleAddLetterSubmit} winOrLoseStatus = {this.state.winOrLose} gameAlert = {this.state.alert} onResetAlert = {this.resetAlertHandler} />
+        <GameControl word = {this.state.currentWord} displayedAnswer = {this.state.currentDisplayedAnswer} guessesByPlayer = {this.props.lettersGuessed} onAddLetterSubmit = {this.handleAddLetterSubmit} winOrLoseStatus = {this.state.winOrLose} gameAlert = {this.state.alert} onResetAlert = {this.resetAlertHandler} />
         <button type='button' onClick={ this.handleNewGameClick }>NEW GAME!</button>
       </React.Fragment>
     );
   }
 }
 
+App.propTypes = {
+  lettersGuessed : PropTypes.array
+};
+
+const mapStateToProps = state => {
+  return{
+    lettersGuessed : state.lettersGuessed
+  }
+}
+
+App = connect(mapStateToProps)(App)
+
+
 export default App;
-
-// // App.propTypes = {
-// //   wordDictionary : PropTypes.object,
-// //   lettersGuessed : PropTypes.bool
-// // };
-
-// // const mapStateToProps = state => {
-// //   return{
-// //     wordDictionary : state.wordDictionary,
-// //     lettersGuessed : state.lettersGuessed
-// //   }
-// // }
-
-// // App = connect(mapStateToProps)(App)
-
-
-// export default App;
