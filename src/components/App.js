@@ -19,6 +19,8 @@ class App extends React.Component {
     };
   }
   
+
+
   handleAddLetterSubmit = (newLetter) => {
     if(!this.state.lettersGuessed.includes(newLetter)){
       const newLettersGuessed = this.state.lettersGuessed.concat(newLetter);
