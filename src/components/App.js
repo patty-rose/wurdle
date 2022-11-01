@@ -24,25 +24,28 @@ class App extends React.Component {
 
   handleAddLetterSubmit = (newLetter) => {
 
-    const { dispatch } = this.props;
-    const action = {
-      type : 'ADD_LETTER',
-      payload: newLetter
-    }
-    dispatch(action);
+    
 
-    // if(!this.props.lettersGuessed.includes(newLetter)){
-    //   const newLettersGuessed = this.props.lettersGuessed.concat(newLetter);
-    //   this.setState({
-    //     lettersGuessed: newLettersGuessed
-    //   })
+    if(!this.props.lettersGuessed.includes(newLetter)){
+
+      //Redux dispatch replaces setState() for store properties
+      const { dispatch } = this.props;
+      const action = {
+        type : 'ADD_LETTER',
+        payload: newLetter
+      }
+      dispatch(action);
+      // const newLettersGuessed = this.props.lettersGuessed.concat(newLetter);
+      // this.setState({
+      //   lettersGuessed: newLettersGuessed
+      // })
       this.hideOrDisplayLetters(newLetter);
       this.checkWinOrLose();
-    // } else {
-    //   this.setState({
-    //     alert: 'repeat-letter'
-    //   })
-    // }
+    } else {
+      this.setState({
+        alert: 'repeat-letter'
+      })
+    }
   }
 
   hideOrDisplayLetters(letter){
@@ -81,10 +84,14 @@ class App extends React.Component {
     this.selectNewWord();
     this.setState({
       currentDisplayedAnswer: ['_', '_', '_', '_', '_'],
-      lettersGuessed: [],
       winOrLose: null,
       alert: null
-    })
+    });
+    const { dispatch } = this.props;
+      const action = {
+        type : 'NEW_GAME'
+      }
+      dispatch(action);
   }
 
   resetAlertHandler = () => {
