@@ -12,7 +12,7 @@ describe('lettersGuessedReducer', () => {
   });
 
   test('should return state as array with "a" as single entry', () => {
-    expect(lettersGuessedReducer([], {type : 'ADD_LETTER'})).toEqual(['a']);
+    expect(lettersGuessedReducer([], {type : 'ADD_LETTER', payload : 'a'})).toEqual(['a']);
   });
 
 });
